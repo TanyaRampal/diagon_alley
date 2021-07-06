@@ -30,6 +30,33 @@ class ShopsController < ApplicationController
   end
 
   def update
+    shop = Shop.find_by(name: params[:name])
+    update_shop = Shop.find(params[:id])
+
+    # check if shop already exists in db
+    if shop
+      flash[:error] = "Shop with name '#{params[:name]}' already exists"
+      redirect_to "/shops/#{params[:id]}/edit"
+      return
+    elsif params[:name] == "" && params[:shop_image] == ""
+      flash[:error] = "Shop name can't be blank, No image attached"
+      redirect_to "/shops/#{params[:id]}/edit"
+      return
+    elsif params[:name] != "" && params[:shop_image] == ""
+      flash[:notice] = "Successfully changed shop name from '#{update_shop.name}' to '#{params[:name]}'"
+      update_shop.name = params[:name]
+      update_shop.save
+    elsif params[:name] == "" && params[:shop_image] != ""
+      flash[:notice] = "Successfully changed shop image of '#{update_shop.name}'"
+      update_shop.shop_image.attach(params[:shop_image])
+      update_shop.save
+    else
+      flash[:notice] = "Successfully changed shop image, and changed shop name from '#{update_shop.name}' to '#{params[:name]}'"
+      update_shop.shop_image.attach(params[:shop_image])
+      update_shop.name = params[:name]
+      update_shop.save
+    end
+    redirect_to "/"
   end
 
   def destroy

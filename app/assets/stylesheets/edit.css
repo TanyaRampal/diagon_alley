@@ -1,13 +1,18 @@
-.edit-container {
-  text-align: center;
-}
-
 .edit {
   background-color: rgb(184, 184, 184, 0.7);
   border: 1px solid lightgray;
   border-radius: 8px;
   margin: 20px;
-
   padding: 20px;
-  width: fit-content;
+  padding-left: 40px;
+  position: absolute;
+  top: 0;
+  right: 30%;
+  left: 30%;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+.edit-form-div {
+  margin-bottom: 10px;
 }

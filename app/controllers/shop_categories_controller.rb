@@ -20,6 +20,27 @@ class ShopCategoriesController < ApplicationController
     redirect_to "/"
   end
 
+  def update
+    shop = Shop.find(params[:shop_id])
+    shop_category = shop.shop_categories.find_by(name: params[:name])
+    update_shop_category = ShopCategory.find(params[:id])
+    # check if category already exists in db
+    if shop_category
+      flash[:error] = "Shop category '#{shop_category.name}' already exists in shop '#{shop.name}'"
+      redirect_to "/shop_categories/#{params[:id]}/edit"
+      return
+    elsif params[:name] == ""
+      flash[:error] = "Category name can't be blank"
+      redirect_to "/shop_categories/#{params[:id]}/edit"
+      return
+    else
+      flash[:notice] = "Successfully changed category name from '#{update_shop_category.name}' to '#{params[:name]}' in shop '#{shop.name}'"
+      update_shop_category.name = params[:name]
+      update_shop_category.save
+    end
+    redirect_to "/"
+  end
+
   def destroy
     shop_category = ShopCategory.find(params[:id])
     shop = shop_category.shop

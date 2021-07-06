@@ -1,0 +1,21 @@
+<% shop_category = ShopCategory.find(params[:id]) %>
+<% shop = shop_category.shop %>
+
+<div class="page-container">
+  <div class="edit">
+    <h5>Please fill out the fields you want to change:</h5>
+    <div class="edit-form-div">Current shop category name: <span style="font-weight:bold">'<%= shop.name %>'</span> </div>
+    <div class="edit-form-div">Belongs to shop: <h5><%= shop.name %></h5> </div>
+
+    <%= form_with(url: "/shop_categories/#{shop_category.id}", method: "put") do %>
+      <div class="edit-form-div">
+        New name for shop category '<%= shop_category.name %>':
+        <div><%= text_field_tag "name", nil, placeholder: "New category name", autofocus: true, class: "new-shop-input" %></div>
+      </div>
+      <%= hidden_field_tag "shop_id", shop.id %>
+    <div><%= submit_tag "Edit Category", class: "button edit-form-div" %></div>
+    <% end %>
+    <%= button_to "Go back", shops_path, method: "get", class: "button button-e" %>
+
+  </div>
+</div>

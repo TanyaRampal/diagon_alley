@@ -1,20 +1,23 @@
 <% shop = Shop.find(params[:id]) %>
 
-
 <div class="page-container">
-<div class="edit-container">
-<div class="edit">
-  <div>Current shop name: <h6><%= shop.name %></h6> </div>
-  <div>Current shop picture: <%= image_tag shop.shop_image, size: "100" %> </div>
+  <div class="edit">
+    <h5>Please fill out the fields you want to change:</h5>
+    <div class="edit-form-div">Current shop name: <h5><%= shop.name %></h5> </div>
+    <div class="edit-form-div">Current shop picture: <div><%= image_tag shop.shop_image, size: "100" %> </div></div>
 
+    <%= form_with(url: "/shops/#{shop.id}", method: "put") do %>
+      <div class="edit-form-div">
+        New name for shop '<%= shop.name %>':
+        <div><%= text_field_tag "name", nil, placeholder: "New shop name", autofocus: true, class: "new-shop-input" %></div>
+      </div>
+      <div class="edit-form-div">
+        New picture for shop '<%= shop.name %>':
+        <%= file_field_tag "shop_image", direct_upload: true %>
+      </div>
+      <div><%= submit_tag "Edit Shop", class: "button edit-form-div" %></div>
+    <% end %>
+    <%= button_to "Go back", shops_path, method: "get", class: "button button-e" %>
 
-  <%= form_with(url: shop_path, method: "put") do %>
-    <p>New name for <%= shop.name %></p>
-    <%= text_field_tag "New name", nil, placeholder: "New shop name", autofocus: true, class: "new-shop-input" %>
-    <p>New picture for <%= shop.name %></p>
-    <%= file_field_tag "shop_image", direct_upload: true %>
-    <%= submit_tag "Add Shop", class: "button" %>
-  <% end %>
-</div>
-</div>
+  </div>
 </div>

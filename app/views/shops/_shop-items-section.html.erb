@@ -36,7 +36,7 @@
 
           <% if role == "owner" %>
             <div style="display:flex;">
-              <%= button_to "Edit", pending_orders_path, method: "get", class: "button button-p" %>
+              <%= button_to "Edit", "/shop_items/#{item.id}/edit", method: "get", class: "button button-p" %>
               <%= button_to "Delete", "/shop_items/#{item.id}", method: "delete", class: "button button-p", data: { confirm: "Are you sure you want to delete the shop item '#{item.name}' from the category '#{category_item.name}' in the shop '#{single_shop.name}?'" } %>
             </div>
           <% else %>
