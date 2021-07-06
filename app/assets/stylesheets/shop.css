@@ -9,14 +9,14 @@ body {
 }
 
 body.homepage {
-  background: url("welcome-bg.jpg");
+  background: url("/app/assets/images/welcome-bg.jpg");
   background-repeat: no-repeat;
   background-position: 0% 0%;
   background-size: 105% 105%;
 }
 
 body.shop {
-  background: url("shop-bg.jpg");
+  background: url("/app/assets/images/shop-bg.jpg");
   background-repeat: no-repeat;
   background-size: 105% 105%;
 }
