@@ -41,7 +41,7 @@
 
           <% if role == "owner" %>
             <div style="display:flex;">
-              <%= button_to "Edit", pending_orders_path, method: "get", class: "button button-p" %>
+              <%= button_to "Edit", "/shops/#{single_shop.id}/edit", method: "get", class: "button button-p" %>
               <%= button_to "Delete", "/shops/#{single_shop.id}", method: "delete", class: "button button-p", data: { confirm: "Are you sure you want to delete the shop '#{single_shop.name}' and associated shop categories and items?" } %>
             </div>
           <% else %>

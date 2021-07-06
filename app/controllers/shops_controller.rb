@@ -29,6 +29,9 @@ class ShopsController < ApplicationController
     redirect_to "/"
   end
 
+  def update
+  end
+
   def destroy
     shop = Shop.find(params[:id])
     shop.shop_categories.each do |category_item|
