@@ -1,0 +1,68 @@
+<div class="shops-container">
+
+  <% if role == "owner" %>
+    <div class="new-shop">
+      <h5>Add a new shop:</h5>
+      <%= form_with(url: shops_path, method: "post") do %>
+        <%= text_field_tag "name", nil, placeholder: "New shop name", autofocus: true, class: "new-shop-input" %>
+        <%= file_field_tag "shop_image", direct_upload: true %>
+        <%= submit_tag "Add Shop", class: "button" %>
+      <% end %>
+    </div>
+  <% end %>
+
+
+  <% Shop.all.order("name").each do |single_shop| %>
+    <div class="single-shop">
+      <nav class="navbar shop-title-bar">
+
+        <% if role != "owner" %>
+          <div
+            class="container-fluid"
+            data-bs-toggle="collapse"
+            data-bs-target="#shop<%= single_shop.id %>"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <div style="display:flex; align-items:center">
+        <% else %>
+          <div class="container-fluid">
+            <div style="display:flex; align-items:center; width:75%"
+              data-bs-toggle="collapse"
+              data-bs-target="#shop<%= single_shop.id %>"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
+        <% end %>
+            <%= image_tag single_shop.shop_image, size: "100" %>
+            <% # <%= cl_image_tag(single_shop.shop_image.key, width: 300, height: 300) %>
+
+            <h2 class="shop-title"><%= single_shop.name %></h2>
+          </div>
+
+          <% if role == "owner" %>
+            <div style="display:flex;">
+              <%= button_to "Edit", pending_orders_path, method: "get", class: "button button-p" %>
+              <%= button_to "Delete", "/shops/#{single_shop.id}", method: "delete", class: "button button-p", data: { confirm: "Are you sure you want to delete the shop '#{single_shop.name}' and associated shop categories and items?" } %>
+            </div>
+          <% else %>
+            <button
+              class="ms-auto btn btn-secondary dropdown-toggle"
+              type="button"
+            ></button>
+          <% end %>
+
+        </div>
+      </nav>
+
+      <!-- Section for shop categories -->
+      <%= render partial: "shop-categories-section", locals: {
+                   role: role,
+                   single_shop: single_shop,
+                   shop_id: single_shop.id,
+                   cart: cart,
+                 } %>
+      <!-- End -->
+
+    </div>
+  <% end %>
+</div>

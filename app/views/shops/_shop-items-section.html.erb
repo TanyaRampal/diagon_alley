@@ -1,0 +1,70 @@
+<% if role == "owner" %>
+  <div
+    class="collapse all-shop-items"
+    id="shop<%= shop_id %><%= category_item.id %>"
+    style="transition: height 0.7s ease 0s"
+  >
+    <div class="p-3 shop-item">
+      <div class="new-shop">
+          <h5>Add a new shop item for category '<%= category_item.name %>' in '<%= single_shop.name %>':</h5>
+          <%= form_with(url: shop_items_path, method: "post") do %>
+            <%= text_field_tag "name", nil, placeholder: "New item name", class: "new-shop-input" %>
+            <%= text_field_tag "description", nil, placeholder: "New item description", class: "new-shop-input" %>
+            <%= number_field_tag "price", nil, placeholder: "New item price", min: 0, step: 0.01, class: "new-shop-input" %>
+            <%= file_field_tag "shop_item_image", direct_upload: true %>
+            <%= hidden_field_tag "shop_category_id", category_item.id %>
+            <%= submit_tag "Add Shop item", class: "new-item button" %>
+          <% end %>
+        </div>
+    </div>
+  </div>
+<% end %>
+
+<% category_item.shop_items.each do |item| %>
+
+  <div
+    class="collapse all-shop-items"
+    id="shop<%= shop_id %><%= category_item.id %>"
+    style="transition: height 0.7s ease 0s"
+  >
+    <div class="p-3 shop-item">
+      <%= image_tag item.shop_item_image, size: "100" %>
+      <div class="shop-item-details">
+        <div class="shop-item-name-button">
+
+          <h5><%= item.name %> - $<%= item.price %></h5>
+
+          <% if role == "owner" %>
+            <div style="display:flex;">
+              <%= button_to "Edit", pending_orders_path, method: "get", class: "button button-p" %>
+              <%= button_to "Delete", "/shop_items/#{item.id}", method: "delete", class: "button button-p", data: { confirm: "Are you sure you want to delete the shop item '#{item.name}' from the category '#{category_item.name}' in the shop '#{single_shop.name}?'" } %>
+            </div>
+          <% else %>
+            <% if @in_cart = cart.cart_items.in_cart?(item.name) %>
+              <div class="quantity-button" style="display: inline-flex; border: 1px solid black;">
+                <%= button_to "-", "/cart_items/#{@in_cart.id}", method: "patch", params: { "value" => "decrease" }, class: "inc" %>
+                <div style="margin-right:5px; margin-left:5px;"><%= @in_cart.quantity %></div>
+                <%= button_to "+", "/cart_items/#{@in_cart.id}", method: "patch", params: { "value" => "increase" }, class: "inc" %>
+              </div>
+
+            <% else %>
+              <%= form_with(url: "/cart_items", method: "post") do %>
+                <%= hidden_field_tag "cart_id", @current_user.carts.first.id %>
+                <%= hidden_field_tag "shop_item_id", item.id %>
+                <%= hidden_field_tag "shop_item_name", item.name %>
+                <%= hidden_field_tag "shop_item_price", item.price %>
+                <%= submit_tag "Add to cart", class: "button" %>
+                <br><br>
+              <% end %>
+
+            <% end %>
+          <% end %>
+
+        </div>
+        <div>
+          <%= item.description %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,87 @@
+<div class="cart-container">
+  <div class="cart-title">
+    <h3 class="cart-title-name"><%= title %></h3>
+    <% if role != "owner" %>
+      <div><%= cart.cart_items.count %> items</div>
+    <% end %>
+  </div>
+
+  <% if role != "owner" %>
+    <% if cart.cart_items != [] %>
+
+      <div class="container1">
+        <div class="container2">
+          <div class="container3">
+            <div class="container cart-table-container">
+
+              <% @sum = 0 %>
+              <% cart.cart_items.all.each do |item| %>
+
+                <div class="row row-items">
+                  <div class="col idk3"><%= item.shop_item_name %></div>
+                  <div class="col idk3">
+
+                    <div class="quantity-button" style="display: inline-flex; border: 1px solid black;">
+                      <%= button_to "-", "/cart_items/#{item.id}", method: "patch", params: { "value" => "decrease" }, class: "inc" %>
+                      <div style="margin-right:5px; margin-left:5px;"><%= item.quantity %></div>
+                      <%= button_to "+", "/cart_items/#{item.id}", method: "patch", params: { "value" => "increase" }, class: "inc" %>
+                    </div>
+
+                  </div>
+                  <div class="col">$<%= item.quantity * item.shop_item_price %></div>
+                </div>
+
+                <% @sum += item.quantity * item.shop_item_price %>
+              <% end %>
+
+              <div class="row row-price">
+                <div class="col-8 idk3">Total price</div>
+                <div class="col">$<%= @sum %></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="checkout-button">
+          <%= button_to "Checkout", "/carts/#{cart.id}", method: "get", class: "button" %>
+        </div>
+        <div class="order-buttons">
+
+          <% @button_title = role == "customer" ? "Pending Orders" : "All Pending Orders" %>
+          <%= button_to @button_title, pending_orders_path, method: "get", class: "button button-p" %>
+
+          <% @button_title = role == "customer" ? "Delivered Orders" : "All Delivered Orders" %>
+          <%= button_to @button_title, delivered_orders_path, method: "get", class: "button button-p" %>
+
+        </div>
+      </div>
+
+    <% else %>
+      <div class="empty-cart">
+        No items in cart yet!
+      </div>
+
+      <div class="order-buttons">
+
+        <% @button_title = role == "customer" ? "Pending Orders" : "All Pending Orders" %>
+        <%= button_to @button_title, pending_orders_path, method: "get", class: "button button-p" %>
+
+        <% @button_title = role == "customer" ? "Delivered Orders" : "All Delivered Orders" %>
+        <%= button_to @button_title, delivered_orders_path, method: "get", class: "button button-p" %>
+
+      </div>
+    <% end %>
+
+  <% else %>
+    <h5 class="owner-buttons-title"> Check orders: </h5>
+    <% @button_title = role == "customer" ? "Pending Orders" : "All Pending Orders" %>
+    <%= button_to @button_title, pending_orders_path, method: "get", class: "owner-button button" %>
+
+    <% @button_title = role == "customer" ? "Delivered Orders" : "All Delivered Orders" %>
+    <%= button_to @button_title, delivered_orders_path, method: "get", class: "owner-button button" %>
+
+    <h5 class="owner-buttons-title"> Create accounts: </h5>
+    <%= button_to "New Owner", new_users_path, method: "get", class: "owner-button button", params: { "role" => "owner" } %>
+    <%= button_to "New Clerk", new_users_path, method: "get", class: "owner-button button", params: { "role" => "clerk" } %>
+  <% end %>
+
+</div>

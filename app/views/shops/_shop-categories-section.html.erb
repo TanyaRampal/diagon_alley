@@ -1,0 +1,75 @@
+<% if role == "owner" %>
+  <div
+    id="shop<%= shop_id %>"
+    class="collapse"
+    style="transition: height 0.7s ease 0s"
+  >
+    <nav class="add-shop-cat navbar shop-category-title-bar">
+      <div class="container-fluid" >
+        <div class="new-shop">
+          <h5>Add a new shop category for '<%= single_shop.name %>':</h5>
+          <%= form_with(url: shop_categories_path, method: "post") do %>
+            <%= text_field_tag "name", nil, placeholder: "New category name", class: "new-shop-input" %>
+            <%= hidden_field_tag "shop_id", shop_id %>
+            <%= submit_tag "Add Shop Category", class: "button" %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+<% end %>
+
+<% single_shop.shop_categories.each do |category_item| %>
+
+  <div
+    id="shop<%= shop_id %>"
+    class="collapse"
+    style="transition: height 0.7s ease 0s"
+  >
+    <nav class="navbar shop-category-title-bar">
+
+      <% if role != "owner" %>
+        <div
+          class="container-fluid"
+          data-bs-toggle="collapse"
+          data-bs-target="#shop<%= shop_id %><%= category_item.id %>"
+          aria-label="Toggle navigation"
+        >
+          <h4 class="shop-title"><%= category_item.name %></h4>
+      <% else %>
+        <div class="container-fluid">
+          <h4 class="shop-title" style="width:70%"
+            data-bs-toggle="collapse"
+            data-bs-target="#shop<%= shop_id %><%= category_item.id %>"
+            aria-label="Toggle navigation">
+            <%= category_item.name %></h4>
+      <% end %>
+
+          <% if role == "owner" %>
+            <div style="display:flex;">
+              <%= button_to "Edit", pending_orders_path, method: "get", class: "button button-p" %>
+              <%= button_to "Delete", "/shop_categories/#{category_item.id}", method: "delete", class: "button button-p", data: { confirm: "Are you sure you want to delete the shop category '#{category_item.name}' and associated shop items from the shop '#{single_shop.name}?'" } %>
+            </div>
+          <% else %>
+            <button
+              class="ms-auto btn btn-secondary dropdown-toggle"
+              type="button"
+            ></button>
+          <% end %>
+
+      </div>
+    </nav>
+  </div>
+
+  <!-- Section for shop items -->
+  <%= render partial: "shop-items-section", locals: {
+               role: role,
+               single_shop: single_shop,
+               category_item: category_item,
+               cart: cart,
+               shop_id: shop_id,
+             } %>
+  <!-- End -->
+
+<% end %>

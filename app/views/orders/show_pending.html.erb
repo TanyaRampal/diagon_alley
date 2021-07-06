@@ -1,0 +1,37 @@
+<div class="checkout-container">
+  <div class="all-or-container">
+
+    <% @orders = @current_user.role == "customer" ? @current_user.orders.pending : Order.pending %>
+
+    <% @title = @current_user.role == "customer" ? "#{@current_user.first_name}'s Online Pending Orders" : "Online Customers Pending Orders" %>
+    <!-- Section for online customers -->
+    <%= render partial: "all-orders-section", locals: {
+                 title: @title,
+                 orders: @orders.online,
+                 status: "pending",
+                 role: @current_user.role,
+               } %>
+    <!-- End  -->
+
+    <% if @current_user.role == "customer" %>
+      <% @walk_in_customer = "#{@current_user.first_name} #{@current_user.last_name} (#{@current_user.email})" %>
+      <% @orders = Order.pending.where(walk_in_customer: @walk_in_customer) %>
+    <% end %>
+
+    <% @title = @current_user.role == "customer" ? "#{@current_user.first_name}'s Walk-in Pending Orders" : "Walk-in Customers Pending Orders" %>
+    <!-- Section for walk in customers -->
+    <%= render partial: "all-orders-section", locals: {
+                 title: @title,
+                 orders: @orders.walk_in,
+                 status: "pending",
+                 role: @current_user.role,
+               } %>
+    <!-- End  -->
+
+  </div>
+
+  <div class="orders-goback">
+    <%= button_to "Go back", shops_path, method: "get", class: "button" %>
+  </div>
+
+</div>

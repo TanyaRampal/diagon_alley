@@ -1,0 +1,45 @@
+<div class="checkout-container">
+  <div class="all-or-container">
+
+    <% @delivered_by = "#{@current_user.first_name} #{@current_user.last_name} (#{@current_user.email})" %>
+
+    <% if @current_user.role == "customer" %>
+      <% @orders = @current_user.orders.delivered %>
+    <% elsif @current_user.role == "clerk" %>
+      <% @orders = Order.has_delivered(@delivered_by) %>
+    <% else %>
+      <% @orders = Order.delivered %>
+    <% end %>
+
+    <% @title = @current_user.role == "customer" ? "#{@current_user.first_name}'s Online Delivered Orders" : "Online Customers Delivered Orders" %>
+    <!-- Section for online customers -->
+    <%= render partial: "all-orders-section", locals: {
+                 title: @title,
+                 orders: @orders.online,
+                 status: "delivered",
+                 role: @current_user.role,
+               } %>
+    <!-- End  -->
+
+    <% if @current_user.role == "customer" %>
+      <% @walk_in_customer = "#{@current_user.first_name} #{@current_user.last_name} (#{@current_user.email})" %>
+      <% @orders = Order.delivered.where(walk_in_customer: @walk_in_customer) %>
+    <% end %>
+
+    <% @title = @current_user.role == "customer" ? "#{@current_user.first_name}'s Walk-in Delivered Orders" : "Walk-in Customers Delivered Orders" %>
+    <!-- Section for walk in customers -->
+    <%= render partial: "all-orders-section", locals: {
+                 title: @title,
+                 orders: @orders.walk_in,
+                 status: "delivered",
+                 role: @current_user.role,
+               } %>
+    <!-- End  -->
+
+  </div>
+
+  <div class="orders-goback">
+    <%= button_to "Go back", shops_path, method: "get", class: "button" %>
+  </div>
+
+</div>

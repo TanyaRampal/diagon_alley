@@ -1,0 +1,58 @@
+/* Style for form of signin and signup pages */
+.users-container {
+  background-color: rgb(184, 184, 184, 0.85);
+  border-radius: 8px;
+  width: 350px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+.new-user {
+  height: 400px;
+  overflow-y: auto;
+}
+
+.NewUsers {
+  display: grid;
+  justify-content: center;
+}
+
+.NewUsers-form {
+  display: flex;
+  justify-content: center;
+}
+
+.Form-section {
+  margin-bottom: 20px;
+}
+
+.Form-input-label {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.Form-input {
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #555;
+}
+
+/* new-users */
+
+.new-user-create {
+  height: 500px;
+  overflow-y: auto;
+}
+
+.new-user-container {
+  width: 500px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+.new-user-form-input {
+  width: 280px;
+}

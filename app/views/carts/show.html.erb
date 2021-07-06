@@ -1,0 +1,65 @@
+<div class="checkout-container">
+  <div class="checkout">
+    <div class="checkout-cart-title">
+      <h3 class="cart-title-name"><%= @current_user.first_name %>'s cart</h3>
+      <h6><%= @current_user.carts.first.cart_items.count %> items</h6>
+    </div>
+
+    <% if @current_user.carts.first.cart_items != [] %>
+
+      <div class="checkout-container1">
+        <div class="checkout-container2">
+          <div class="container">
+
+            <div class="row row-items">
+              <div class="col idk3"><h6>Item Name</h6></div>
+              <div class="col idk3"><h6>Quanitity</h6></div>
+              <div class="col"><h6>Price</h6></div>
+            </div>
+
+            <% @sum = 0 %>
+            <% @current_user.carts.first.cart_items.all.each do |item| %>
+
+              <div class="row row-items">
+                <div class="col idk3"><%= item.shop_item_name %></div>
+                <div class="col idk3"><%= item.quantity %></div>
+                <div class="col">$<%= item.quantity * item.shop_item_price %></div>
+              </div>
+
+              <% @sum += item.quantity * item.shop_item_price %>
+            <% end %>
+
+          </div>
+        </div>
+        <div class="row checkout-row-price">
+          <div class="col-8 idk3"><h6>Total Price</h6></div>
+          <div class="col"><h6>$<%= @sum %></h6> </div>
+        </div>
+
+        <div class="checkout-buttons">
+
+          <% if @current_user.role == "clerk" %>
+            <%= form_with(url: "/carts/#{@current_user.carts.first.id}", method: "delete") do %>
+              <%= text_field_tag "walk_in_customer", nil, placeholder: "Name of customer", autofocus: true, required: true, class: "Form-input" %>
+              <%= submit_tag "Confirm order", class: "button" %>
+              <br><br>
+            <% end %>
+          <% else %>
+            <%= button_to "Confirm order", "/carts/#{@current_user.carts.first.id}", method: "delete", class: "button" %>
+          <% end %>
+
+          <%= button_to "Go back", shops_path, method: "get", class: "button" %>
+        </div>
+      </div>
+
+  <% else %>
+    <div class="empty-cart">
+      No items in cart yet!
+    </div>
+
+    <div class="checkout-buttons">
+        <%= button_to "Go back", shops_path, method: "get", class: "button" %>
+    </div>
+  <% end %>
+
+</div>

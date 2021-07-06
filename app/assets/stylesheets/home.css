@@ -1,0 +1,66 @@
+/* Header for homepage, signin and signup pages */
+.Header-title {
+  font-size: 34px;
+  padding: 20px;
+  text-align: center;
+  background-color: rgb(184, 184, 184, 0.85);
+  color: rgb(64, 64, 64);
+  border-bottom: 3px solid;
+}
+
+/* **************** */
+
+/* Ordered list in homepage */
+.Home-authenticate {
+  margin-left: 20%;
+  list-style: disc;
+  font-size: 18px;
+}
+
+.Home-authenticate > li {
+  margin-bottom: 10px;
+}
+/* **************** */
+
+/* Style for all flash messages */
+.Flash-error {
+  color: darkred;
+  margin-bottom: 20px;
+  font-size: 16px;
+  background-color: #ffb6b6;
+  padding: 5px;
+  border-radius: 2px;
+  display: table;
+  text-align: center;
+}
+
+.Flash-notice {
+  color: green;
+  margin-bottom: 20px;
+  font-size: 16px;
+  background-color: rgba(83, 216, 139);
+  padding: 5px;
+  border-radius: 2px;
+  display: table;
+  text-align: center;
+}
+
+.Flash-welcome {
+  background-color: rgba(83, 216, 139, 0.8);
+  margin-bottom: 10px;
+  font-size: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  color: green;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+}
+
+.user-error {
+  margin-left: -100px;
+  margin-bottom: 0;
+  font-size: 16px;
+  width: 500px;
+}
+/* **************** */

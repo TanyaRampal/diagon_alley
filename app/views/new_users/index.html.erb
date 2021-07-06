@@ -1,0 +1,36 @@
+<div class="page-container">
+  <div class="new-user-container users-container new-user-create">
+    <section class="NewUsers">
+      <h3 style="margin-bottom:20px"> Create New <%= params[:role].capitalize %> </h3>
+      <div class="NewUsers-form">
+        <%= form_with url: new_users_path do |form| %>
+          <div class="Form-section">
+            <p class="Form-input-label">First Name:</p>
+            <%= form.text_field :first_name, class: "new-user-form-input Form-input" %>
+          </div>
+          <div class="Form-section">
+            <p class="Form-input-label">Last Name:</p>
+            <%= form.text_field :last_name, class: "new-user-form-input Form-input" %>
+          </div>
+          <div class="Form-section">
+            <p class="Form-input-label">Email:</p>
+            <%= form.email_field :email, class: "new-user-form-input Form-input" %>
+          </div>
+          <div class="Form-section">
+            <p class="Form-input-label">Password:</p>
+            <%= form.password_field :password, class: "new-user-form-input Form-input" %>
+          </div>
+
+          <%= form.hidden_field :role, value: params[:role] %>
+
+          <div class="Form-section">
+            <%= form.submit "Create account", class: "button" %>
+          </div>
+        <% end %>
+
+      </div>
+      <%= button_to "Go back", shops_path, method: "get", class: "button" %>
+
+    </section>
+  </div>
+</div>

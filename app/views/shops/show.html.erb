@@ -1,0 +1,25 @@
+<div class="page-container">
+
+  <div class="cart">
+
+    <% @title = @current_user.role == "owner" ? "Actions" : "#{@current_user.first_name}'s cart" %>
+
+    <!-- Section for cart -->
+    <%= render partial: "cart-section", locals: {
+                 title: @title,
+                 role: @current_user.role,
+                 cart: @current_user.carts.first,
+               } %>
+    <!-- End of cart -->
+  </div>
+
+  <div class="shops">
+    <!-- Section for shops -->
+    <%= render partial: "shop-section", locals: {
+                 role: @current_user.role,
+                 cart: @current_user.carts.first,
+               } %>
+    <!-- End of shops -->
+  </div>
+
+</div>
