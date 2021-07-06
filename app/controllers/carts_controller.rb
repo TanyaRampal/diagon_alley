@@ -37,9 +37,12 @@ class CartsController < ApplicationController
       )
     end
 
+    flash[:notice] = "Order successfully placed! Expect an owl with your items soon!"
+
     if current_user.role == "clerk"
       order.walk_in_customer = "#{customer.first_name} #{customer.last_name} (#{customer.email})"
       order.save
+      flash[:notice] = "Order successfully placed for walk-in customer"
     end
 
     cart.destroy

@@ -14,7 +14,7 @@
         <div class="all-orders">
 
           <div class="order-dets-all-del order-dets">
-            <% if role != "customer" %>
+            <% if (order.walk_in_customer != nil && role == "customer") || role != "customer" %>
               <h5>Ordered by <%= order.user.first_name %> <%= order.user.last_name %> (<%= order.user.email %>)
               <% if order.walk_in_customer != nil %>
               (for walk-in customer)</h5>
@@ -23,8 +23,10 @@
             <% if order.delivered_by != nil && role != "clerk" %>
               <h5>Delivered by <%= order.delivered_by %></h5>
             <% end %>
-            <% if order.walk_in_customer != nil %>
-              <h5>Walk-in Customer: <%= order.walk_in_customer %> </h5>
+            <% if role != "customer" %>
+              <% if order.walk_in_customer != nil %>
+                <h5>Walk-in Customer: <%= order.walk_in_customer %> </h5>
+              <% end %>
             <% end %>
             <h5>Ordered on <%= Date.parse(order.ordered_on.to_s).to_s(:long) %> at <%= Time.parse(order.ordered_on.to_s).strftime("%I:%M %p") %></h5>
             <% if status == "delivered" %>

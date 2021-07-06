@@ -32,6 +32,26 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    @current_user = User.find(session[:current_user_id])
+    if @current_user.role == "owner"
+      errors = []
+      Shop.all.each do |shop|
+        if shop.shop_categories.count == 0
+          errors.push("The shop '#{shop.name}' has no categories")
+        end
+        shop.shop_categories.each do |shop_category|
+          if shop_category.shop_items.count == 0
+            errors.push("The category '#{shop_category.name}' within shop '#{shop.name}' has no items")
+          end
+        end
+      end
+      if errors != []
+        flash[:error] = errors.join(", ")
+        redirect_to "/"
+        return
+      end
+    end
+
     session[:current_user_id] = nil
     # give sign-out success message in homepage(index)
     flash[:notice] = "You have successfully signed out."

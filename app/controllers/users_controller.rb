@@ -18,14 +18,6 @@ class UsersController < ApplicationController
       )
       # give a success message (in homepage) if account is created else give flash error
       if new_user.save
-        greeting = "Good " + if Time.now.hour < 12
-          "Morning"
-        elsif Time.now.hour > 12 && Time.now.hour < 17
-          "Afternoon"
-        else
-          "Evening"
-        end
-        flash[:welcome] = "#{greeting}, #{new_user.first_name.capitalize} #{new_user.last_name.capitalize} :)"
         flash[:notice] = "You have successfully created a new account."
         redirect_to "/"
       else

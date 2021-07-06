@@ -33,6 +33,12 @@
         </p>
       <% end %>
 
+      <% if flash[:welcome] %>
+        <p class="Flash-welcome">
+          <%= flash[:welcome] %>
+        </p>
+      <% end %>
+
 
       <%= button_to "Sign-out", destroy_session_path, method: "delete", class: "sign-out-button button" %>
     </div>
@@ -48,12 +54,6 @@
           $('.collapse').collapse('hide');
         });
       });
-
-      function idk() {
-        $('.collapse').collapse('hide');
-      }
-
-
     </script>
   </body>
 </html>
