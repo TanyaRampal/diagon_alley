@@ -5,7 +5,7 @@
 
 .orders-goback {
   position: absolute;
-  background-color: rgb(184, 184, 184, 0.9);
+  background-color: rgba(184, 184, 184, 0.9);
   margin: 10px;
   padding: 5px;
   border: 1px solid lightgray;
@@ -15,7 +15,7 @@
 }
 
 .all-or {
-  background-color: rgb(184, 184, 184, 0.7);
+  background-color: rgba(184, 184, 184, 0.7);
   border: 1px solid lightgray;
   border-radius: 8px;
   margin: 7px;

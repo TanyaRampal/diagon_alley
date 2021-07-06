@@ -1,6 +1,6 @@
 /* Style for form of signin and signup pages */
 .users-container {
-  background-color: rgb(184, 184, 184, 0.85);
+  background-color: rgba(184, 184, 184, 0.85);
   border-radius: 8px;
   width: 350px;
   margin: auto;
