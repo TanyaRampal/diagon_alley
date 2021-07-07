@@ -30,7 +30,9 @@ There are 3 personas:
 
 The sign-in and sign-up pages have a brick wall background to mimic Diagon Alley's entrance through the Leaky Cauldron. The background image of the homepage is an actual picture of Diagon Alley. 'Alohomora' is the spell to open up locks(thus is used to open up the page for you!)
 
-(video)
+https://user-images.githubusercontent.com/64131298/124811641-4caac500-df80-11eb-8d29-dfd4e31def70.mp4
+
+<hr />
 
 - Customers can see the shops, shop categories and shop items by toggling them.
 - They can add the shop items to cart(which is always visible on the LHS of the screen), and increase their quanitity. 
@@ -41,23 +43,28 @@ The sign-in and sign-up pages have a brick wall background to mimic Diagon Alley
 
 'Wingardium Leviosa' is a spell that makes objects levitate/fly to another position. Thus confirming the order means we are sending it away! 'Reverte' is a spell that reverses any magical change, so it is a button to go back to the homepage. 
 
-(video)
+https://user-images.githubusercontent.com/64131298/124812657-85976980-df81-11eb-9ae3-791b659c08e8.mp4
+
+<hr />
 
 - Walk-in customers' orders are made by a billing clerk, and the orders are shown in the pening/delivered sites.
 - Finally, customers can sign out when they are finished.
-<br />
+<hr />
 
 ### Clerk
 
 - Clerks cannot make a new account on their own as their accounts are made by the owners. They can only sign-in.
 - They can mark the pending orders(both online and walk-in) as delivered, and can see the orders they have delivered.
 
-(video)
+https://user-images.githubusercontent.com/64131298/124813229-4289c600-df82-11eb-8840-c514e906086b.mp4
+
+<hr />
 
 - Clerks can make orders for walk in customers as well, and have to specify the name of the customer who is ordering, who should already have an account.
 
-(video)
-<br />
+https://user-images.githubusercontent.com/64131298/124815407-dbb9dc00-df84-11eb-9b61-752f0ffe5c63.mp4
+
+<hr />
 
 ### Owner
 
@@ -85,3 +92,14 @@ The sign-in and sign-up pages have a brick wall background to mimic Diagon Alley
 - The owner can see a list of all the users, and can edit the clerks/owners info there. On clicking on a customer, all their deliveries are shown.
 
 (video)
+<br />
+<br />
+
+## The End!
+
+tadaaah that's my project!
+
+Heroku Link: https://diagon-alley-site.herokuapp.com/ (may take a while to open for the first time)
+
+A special thanks and a huge shoutout to the Pupilfirst team for selecting me for their WD201 course(https://www.pupilfirst.school/courses/123/curriculum), and for their excellent guidance in **Ruby on Rails(6)**!
+
