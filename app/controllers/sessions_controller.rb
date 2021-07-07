@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
     if user
       # give a welcome message (in /todos) if account is signed-in else give flash error
       if user.authenticate(params[:password])
-        greeting = "Good " + if Time.now.hour + 5.hours + 30.minutes < 12
+        greeting = "Good " + if Time.now.hour + 5 < 12
           "Morning"
-        elsif Time.now.hour + 5.hours + 30.minutes > 12 && Time.now.hour + 5.hours + 30.minutes < 17
+        elsif Time.now.hour + 5 > 12 && Time.now.hour + 5 < 17
           "Afternoon"
         else
           "Evening"
