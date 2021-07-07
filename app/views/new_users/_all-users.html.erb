@@ -12,7 +12,7 @@
 
         <div style="display: flex; justify-content:space-between">
           <% if role != "owner" %>
-            <%= link_to "#{person.first_name} #{person.last_name} #{person.email}", "/orders/#{person.id}", class: "users-row" %>
+            <%= link_to "#{person.first_name} #{person.last_name} (#{person.email})", "/orders/#{person.id}", class: "users-row" %>
           <% else %>
             <div class="users-row-owner">
               <%= person.first_name %> <%= person.last_name %> (<%= person.email %>)
