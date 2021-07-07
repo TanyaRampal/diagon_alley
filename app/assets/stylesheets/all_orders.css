@@ -63,6 +63,7 @@
   border: 1px solid lightgray;
   border-radius: 8px;
   padding: 10px;
+  width: 100%;
 }
 
 .users-row {
@@ -72,6 +73,7 @@
   padding: 10px;
   text-decoration: none;
   color: black;
+  width: 100%;
 }
 
 .users-row:hover {
@@ -85,4 +87,9 @@
   box-shadow: 0 4px 8px 0 white, 0 10px 10px 0 white;
   transform: translateY(2px);
   color: black;
+}
+
+.users-edit {
+  margin-top: 13px;
+  margin-right: 5px;
 }

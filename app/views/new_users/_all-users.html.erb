@@ -10,15 +10,22 @@
 
       <% people.each do |person| %>
 
-        <% if role != "owner" %>
-          <%= link_to "#{person.first_name} #{person.last_name} #{person.email}", "/orders/#{person.id}", class: "row row-items users-row" %>
-        <% else %>
-          <div class="row row-items users-row-owner">
-            <%= person.first_name %> <%= person.last_name %> (<%= person.email %>)
-          </div>
-        <% end %>
+        <div style="display: flex; justify-content:space-between">
+          <% if role != "owner" %>
+            <%= link_to "#{person.first_name} #{person.last_name} #{person.email}", "/orders/#{person.id}", class: "users-row" %>
+          <% else %>
+            <div class="users-row-owner">
+              <%= person.first_name %> <%= person.last_name %> (<%= person.email %>)
+            </div>
+          <% end %>
+
+          <% if role != "customer" %>
+            <%= button_to "Edit", "/new_users/#{person.id}/edit", method: "get", class: "button button-p users-edit" %>
+          <% end %>
+        </div>
 
       <% end %>
+
     </div>
 
   <% else %>
