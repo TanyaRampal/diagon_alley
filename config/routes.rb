@@ -21,4 +21,6 @@ Rails.application.routes.draw do
 
   get "/pending_orders" => "orders#show_pending", as: :pending_orders
   get "/delivered_orders" => "orders#show_delivered", as: :delivered_orders
+
+  get "/all_users" => "new_users#show_all_users", as: :all_users
 end

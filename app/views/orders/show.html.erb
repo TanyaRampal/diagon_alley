@@ -1,0 +1,58 @@
+<div class="checkout-container">
+  <div class="all-or-container">
+
+    <% @user = User.find(params[:id]) %>
+
+    <% if @user.role == "customer" %>
+      <% @ordered_by = "#{@user.first_name} #{@user.last_name} (#{@user.email})" %>
+      <% @online = @user.orders.order("delivered_on DESC") %>
+      <% @orders = Order.where("walk_in_customer = ? OR user_id = ?", @ordered_by, params[:id]).order("delivered_on DESC") %>
+
+      <!-- Section for pending -->
+      <%= render partial: "all-orders-section", locals: {
+                   title: "#{@user.first_name}'s Pending Orders",
+                   orders: @orders.pending,
+                   status: "pending",
+                   role: @current_user.role,
+                 } %>
+      <!-- End  -->
+
+      <!-- Section for delivered -->
+      <%= render partial: "all-orders-section", locals: {
+                   title: "#{@user.first_name}'s Delivered Orders",
+                   orders: @orders.delivered,
+                   status: "delivered",
+                   role: @current_user.role,
+                 } %>
+      <!-- End  -->
+
+
+    <% else %>
+      <% @delivered_by = "#{@user.first_name} #{@user.last_name} (#{@user.email})" %>
+      <% @orders = Order.where(delivered_by: @delivered_by).order("delivered_on DESC") %>
+
+      <!-- Section for pending -->
+      <%= render partial: "all-orders-section", locals: {
+                   title: "#{@user.first_name}'s Online delivered Orders",
+                   orders: @orders.online,
+                   status: "delivered",
+                   role: @current_user.role,
+                 } %>
+      <!-- End  -->
+
+      <!-- Section for walk in customers -->
+      <%= render partial: "all-orders-section", locals: {
+                   title: "#{@user.first_name}'s walk-in Delivered Orders",
+                   orders: @orders.walk_in,
+                   status: "delivered",
+                   role: @current_user.role,
+                 } %>
+      <!-- End  -->
+    <% end %>
+
+  </div>
+  <div class="orders-goback">
+    <%= button_to "Reverte!", all_users_path, method: "get", class: "button" %>
+  </div>
+
+</div>

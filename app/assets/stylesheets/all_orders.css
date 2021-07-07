@@ -57,3 +57,32 @@
   margin-top: 10px;
   text-align: center;
 }
+
+.users-row-owner {
+  margin: 10px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.users-row {
+  margin: 10px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.users-row:hover {
+  box-shadow: 0 4px 8px 0 white, 0 10px 10px 0 white;
+  background-color: rgba(184, 184, 184, 1);
+  cursor: pointer;
+  color: black;
+}
+
+.users-row:active {
+  box-shadow: 0 4px 8px 0 white, 0 10px 10px 0 white;
+  transform: translateY(2px);
+  color: black;
+}

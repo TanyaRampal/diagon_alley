@@ -1,0 +1,34 @@
+<div class="checkout-container">
+  <div class="all-or-container">
+
+    <!-- Section for customers -->
+    <%= render partial: "all-users", locals: {
+                 title: "Customers",
+                 people: User.customer,
+                 role: "customer",
+               } %>
+    <!-- End  -->
+
+    <!-- Section for clerks -->
+    <%= render partial: "all-users", locals: {
+                 title: "Billing clerks",
+                 people: User.clerk,
+                 role: "clerk",
+               } %>
+    <!-- End  -->
+
+    <!-- Section for clerks -->
+    <%= render partial: "all-users", locals: {
+                 title: "Owners",
+                 people: User.owner,
+                 role: "owner",
+               } %>
+    <!-- End  -->
+
+  </div>
+
+  <div class="orders-goback">
+    <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
+  </div>
+
+</div>

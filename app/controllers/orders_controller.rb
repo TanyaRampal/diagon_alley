@@ -1,8 +1,6 @@
 class OrdersController < ApplicationController
-  def show_pending
-  end
-
-  def show_delivered
+  def show_customers_orders
+    render plain: params
   end
 
   def update

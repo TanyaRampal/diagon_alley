@@ -5,4 +5,16 @@ class User < ActiveRecord::Base
 
   has_many :orders
   has_many :carts
+
+  def self.customer
+    where(role: "customer")
+  end
+
+  def self.clerk
+    where(role: "clerk")
+  end
+
+  def self.owner
+    where(role: "owner")
+  end
 end

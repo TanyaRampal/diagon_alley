@@ -1,0 +1,30 @@
+<div class="all-or">
+  <div class="all-or-title">
+    <h5 class="cart-title-name"><%= title %></h5>
+    <div><%= people.count %> <%= role %>s</div>
+  </div>
+
+  <% if people != [] %>
+
+    <div class="all-orders-container">
+
+      <% people.each do |person| %>
+
+        <% if role != "owner" %>
+          <%= link_to "#{person.first_name} #{person.last_name} #{person.email}", "/orders/#{person.id}", class: "row row-items users-row" %>
+        <% else %>
+          <div class="row row-items users-row-owner">
+            <%= person.first_name %> <%= person.last_name %> (<%= person.email %>)
+          </div>
+        <% end %>
+
+      <% end %>
+    </div>
+
+  <% else %>
+    <div class="empty-cart">
+      No <%= role %>s yet!
+    </div>
+  <% end %>
+
+</div>
