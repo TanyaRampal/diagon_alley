@@ -20,7 +20,7 @@
   </div>
 <% end %>
 
-<% category_item.shop_items.each do |item| %>
+<% category_item.shop_items.order("name").each do |item| %>
 
   <div
     class="collapse all-shop-items"
@@ -28,7 +28,7 @@
     style="transition: height 0.7s ease 0s"
   >
     <div class="p-3 shop-item">
-      <%# <%= image_tag item.shop_item_image, size: "100" %>
+      <% # <%= image_tag item.shop_item_image, size: "100" %>
       <%= cl_image_tag(item.shop_item_image.key, width: 100, height: 100) %>
 
 

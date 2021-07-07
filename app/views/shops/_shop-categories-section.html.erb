@@ -20,7 +20,7 @@
 
 <% end %>
 
-<% single_shop.shop_categories.each do |category_item| %>
+<% single_shop.shop_categories.order("name").each do |category_item| %>
 
   <div
     id="shop<%= shop_id %>"

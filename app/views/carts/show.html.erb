@@ -41,14 +41,14 @@
           <% if @current_user.role == "clerk" %>
             <%= form_with(url: "/carts/#{@current_user.carts.first.id}", method: "delete") do %>
               <%= text_field_tag "walk_in_customer", nil, placeholder: "Name of customer", autofocus: true, required: true, class: "Form-input" %>
-              <%= submit_tag "Confirm order", class: "button" %>
+              <%= submit_tag "Wingardium Leviosa!", class: "button" %>
               <br><br>
             <% end %>
           <% else %>
-            <%= button_to "Confirm order", "/carts/#{@current_user.carts.first.id}", method: "delete", class: "button" %>
+            <%= button_to "Wingardium Leviosa!", "/carts/#{@current_user.carts.first.id}", method: "delete", class: "button" %>
           <% end %>
 
-          <%= button_to "Go back", shops_path, method: "get", class: "button" %>
+          <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
         </div>
       </div>
 
@@ -58,7 +58,7 @@
     </div>
 
     <div class="checkout-buttons">
-        <%= button_to "Go back", shops_path, method: "get", class: "button" %>
+        <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
     </div>
   <% end %>
 
