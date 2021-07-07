@@ -18,7 +18,8 @@ There are 3 personas:
 - Customer(a new wizard/witch who wants to shop!)
 - Billing Clerk
 - Owner
-<br />
+
+<hr />
 
 ### Customer
 
@@ -71,7 +72,11 @@ https://user-images.githubusercontent.com/64131298/124815407-dbb9dc00-df84-11eb-
 - Owners can also only sign-in. The app is built with an owner already created.
 - The owner can add new shops/shop categories/shop items. An error is generated is the owner tries to sign out without a shop having atleast 1 category and 1 item.
 
-(video)
+https://user-images.githubusercontent.com/64131298/124820170-c0ea6600-df8a-11eb-8bfb-e0a9d865e69c.mp4
+
+https://user-images.githubusercontent.com/64131298/124820613-5554c880-df8b-11eb-8e8f-f52997dfe30a.mp4
+
+<hr />
 
 - The owner can edit and delete any shops/shop category/shop item.
 
@@ -79,27 +84,26 @@ https://user-images.githubusercontent.com/64131298/124815407-dbb9dc00-df84-11eb-
 
 'Duro' is the hardening Charm that turns an object to stone, thus confirming the edit we commit to any object.
 
-(video)
+https://user-images.githubusercontent.com/64131298/124822244-4707ac00-df8d-11eb-8ea8-4fc1510cdc05.mp4
+
+<hr />
 
 -The owner can see all pending and delivered orders
-
-(video)
-
 - The owner can create new clerks and owners.
-
-(video)
-
 - The owner can see a list of all the users, and can edit the clerks/owners info there. On clicking on a customer, all their deliveries are shown.
 
 (video)
-<br />
+
+<hr />
+
 <br />
 
 ## The End!
 
-tadaaah that's my project!
+**_\~tadaaah\~_** that's my project!
 
 Heroku Link: https://diagon-alley-site.herokuapp.com/ (may take a while to open for the first time)
 
 A special thanks and a huge shoutout to the Pupilfirst team for selecting me for their WD201 course(https://www.pupilfirst.school/courses/123/curriculum), and for their excellent guidance in **Ruby on Rails(6)**!
+
 
