@@ -1,25 +1,6 @@
-# README
-# hello
+# The Diagon Alley Site
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is an online representation of Diagon alley, a fictional cobblestoned wizarding alley and shopping area in the Harry Potter universe. It is built using HTML5, CSS3(+ the Twitter Bootstrap 5 framework), JavaScript for front-end, and Ruby on Rails(6) along with PostgreSQl object-relational database system for the back-end. 
+For production, the app is deployed using Heroku, with Cloudinary as add-on for storing pictures.
 
-Things you may want to cover:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
