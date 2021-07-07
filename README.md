@@ -88,11 +88,22 @@ https://user-images.githubusercontent.com/64131298/124822244-4707ac00-df8d-11eb-
 
 <hr />
 
--The owner can see all pending and delivered orders
+- The owner can see all pending and delivered orders
+
+https://user-images.githubusercontent.com/64131298/124823899-538d0400-df8f-11eb-9a80-2df8fa6cb3ac.mp4
+
+
+
 - The owner can create new clerks and owners.
+
+https://user-images.githubusercontent.com/64131298/124824774-74098e00-df90-11eb-8c16-79a8aa662fcd.mp4
+
+<hr />
+
 - The owner can see a list of all the users, and can edit the clerks/owners info there. On clicking on a customer, all their deliveries are shown.
 
-(video)
+https://user-images.githubusercontent.com/64131298/124825947-e169ee80-df91-11eb-8911-948e67e47cd4.mp4
+
 
 <hr />
 
@@ -105,5 +116,8 @@ https://user-images.githubusercontent.com/64131298/124822244-4707ac00-df8d-11eb-
 Heroku Link: https://diagon-alley-site.herokuapp.com/ (may take a while to open for the first time)
 
 A special thanks and a huge shoutout to the Pupilfirst team for selecting me for their WD201 course(https://www.pupilfirst.school/courses/123/curriculum), and for their excellent guidance in **Ruby on Rails(6)**!
+
+
+
 
 
