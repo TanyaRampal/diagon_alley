@@ -48,7 +48,7 @@ https://user-images.githubusercontent.com/64131298/124812657-85976980-df81-11eb-
 
 <hr />
 
-- Walk-in customers' orders are made by a billing clerk, and the orders are shown in the pening/delivered sites.
+- Walk-in customers' orders are made by a billing clerk, and the orders are shown in the pending/delivered sites.
 - Finally, customers can sign out when they are finished.
 <hr />
 
@@ -70,7 +70,7 @@ https://user-images.githubusercontent.com/64131298/124815407-dbb9dc00-df84-11eb-
 ### Owner
 
 - Owners can also only sign-in. The app is built with an owner already created.
-- The owner can add new shops/shop categories/shop items. An error is generated is the owner tries to sign out without a shop having atleast 1 category and 1 item.
+- The owner can add new shops/shop categories/shop items. An error is generated if the owner tries to sign out without a shop having atleast 1 category and 1 item.
 
 https://user-images.githubusercontent.com/64131298/124820170-c0ea6600-df8a-11eb-8bfb-e0a9d865e69c.mp4
 
@@ -93,12 +93,16 @@ https://user-images.githubusercontent.com/64131298/124822244-4707ac00-df8d-11eb-
 https://user-images.githubusercontent.com/64131298/124823899-538d0400-df8f-11eb-9a80-2df8fa6cb3ac.mp4
 
 
+<hr />
+
 
 - The owner can create new clerks and owners.
 
 https://user-images.githubusercontent.com/64131298/124824774-74098e00-df90-11eb-8c16-79a8aa662fcd.mp4
 
+
 <hr />
+
 
 - The owner can see a list of all the users, and can edit the clerks/owners info there. On clicking on a customer, all their deliveries are shown.
 
@@ -116,8 +120,5 @@ https://user-images.githubusercontent.com/64131298/124825947-e169ee80-df91-11eb-
 Heroku Link: https://diagon-alley-site.herokuapp.com/ (may take a while to open for the first time)
 
 A special thanks and a huge shoutout to the Pupilfirst team for selecting me for their WD201 course(https://www.pupilfirst.school/courses/123/curriculum), and for their excellent guidance in **Ruby on Rails(6)**!
-
-
-
 
 
