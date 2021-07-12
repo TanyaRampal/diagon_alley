@@ -6,9 +6,6 @@ class CartsController < ApplicationController
     redirect_to "/"
   end
 
-  def show
-  end
-
   def destroy
     if current_user.role == "clerk"
       customer = User.find_by(email: params[:walk_in_customer])

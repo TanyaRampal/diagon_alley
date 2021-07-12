@@ -1,3 +1,4 @@
+<% if @current_user.role == "owner" %>
 <% shop = Shop.find(params[:id]) %>
 <% total_items = 0 %>
 <% total_price = 0 %>
@@ -52,3 +53,11 @@
   </div>
 
 </div>
+<% else %>
+  <% flash[:error] = "You do not have access to this page" %>
+  <div class="checkout-container">
+    <div class="all-or-container">
+      <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
+    </div>
+  </div>
+<% end %>

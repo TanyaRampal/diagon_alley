@@ -1,3 +1,4 @@
+<% if @current_user.role == "owner" %>
 <div class="all-or">
   <div class="all-or-title">
     <h5 class="cart-title-name"><%= title %></h5>
@@ -35,3 +36,12 @@
   <% end %>
 
 </div>
+
+<% else %>
+  <% flash[:error] = "You do not have access to this page" %>
+  <div class="checkout-container">
+    <div class="all-or-container">
+      <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
+    </div>
+  </div>
+<% end %>
