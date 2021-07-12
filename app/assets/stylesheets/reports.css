@@ -1,0 +1,17 @@
+.reports {
+  padding: 20px;
+  height: 340px;
+}
+
+.report-categories {
+  margin-bottom: 20px;
+}
+
+.report-items {
+  padding-left: 20px;
+}
+
+.report-row {
+  text-align: center;
+  padding-top: 4px;
+}

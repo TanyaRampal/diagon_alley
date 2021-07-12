@@ -1,0 +1,54 @@
+<% shop = Shop.find(params[:id]) %>
+<% total_items = 0 %>
+<% total_price = 0 %>
+
+<div class="checkout-container">
+  <div class="all-or-container">
+
+    <div class="all-or reports-container">
+      <div class="all-or-title">
+        <h4 class="cart-title-name">'<%= shop.name %>' Reports</h4>
+      </div>
+
+      <div class="all-orders-container reports">
+
+        <% shop.shop_categories.order("name").each do |single_category| %>
+          <div class="report-categories">
+            <h5><%= single_category.name %></h5>
+
+            <div class="report-items">
+              <% single_category.shop_items.order("name").each do |item| %>
+                <div>
+                  <%= item.name %> -
+                  <% if item.number_ordered == nil %>
+                    <% number = 0 %>
+                    0
+                  <% else %>
+                    <% number = item.number_ordered %>
+                    <%= item.number_ordered %>
+                  <% end %>
+                </div>
+
+                <% total_items += number %>
+                <% total_price += number * item.price %>
+
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+
+      </div>
+      <div class="row report-row">
+        <div class="col idk3"><h6>Total Items bought: <%= total_items %></h6></div>
+        <div class="col"><h6>Total price: $<%= total_price %></h6></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="orders-goback">
+    <%= button_to "Reverte!", reports_path, method: "get", class: "button" %>
+  </div>
+
+</div>

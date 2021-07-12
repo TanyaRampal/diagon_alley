@@ -72,19 +72,21 @@
     <% end %>
 
   <% else %>
-    <h5 class="owner-buttons-title"> Check orders: </h5>
-    <% @button_title = role == "customer" ? "Pending Orders" : "All Pending Orders" %>
-    <%= button_to @button_title, pending_orders_path, method: "get", class: "owner-button button" %>
+    <div class="owner-buttons">
+      <h5 class="owner-buttons-title"> Reports: </h5>
+      <% @button_title = role == "customer" ? "Pending Orders" : "All Pending Orders" %>
+      <%= button_to @button_title, pending_orders_path, method: "get", class: "owner-button button" %>
+      <% @button_title = role == "customer" ? "Delivered Orders" : "All Delivered Orders" %>
+      <%= button_to @button_title, delivered_orders_path, method: "get", class: "owner-button button" %>
+      <%= button_to "Shop Statistics Reports", reports_path, method: "get", class: "owner-button button" %>
 
-    <% @button_title = role == "customer" ? "Delivered Orders" : "All Delivered Orders" %>
-    <%= button_to @button_title, delivered_orders_path, method: "get", class: "owner-button button" %>
+      <h5 class="owner-buttons-title"> Create accounts: </h5>
+      <%= button_to "New Owner", new_users_path, method: "get", class: "owner-button button", params: { "role" => "owner" } %>
+      <%= button_to "New Clerk", new_users_path, method: "get", class: "owner-button button", params: { "role" => "clerk" } %>
 
-    <h5 class="owner-buttons-title"> Create accounts: </h5>
-    <%= button_to "New Owner", new_users_path, method: "get", class: "owner-button button", params: { "role" => "owner" } %>
-    <%= button_to "New Clerk", new_users_path, method: "get", class: "owner-button button", params: { "role" => "clerk" } %>
-
-    <h5 class="owner-buttons-title"> See accounts: </h5>
-    <%= button_to "All Accounts", all_users_path, method: "get", class: "owner-button button" %>
+      <h5 class="owner-buttons-title"> See accounts: </h5>
+      <%= button_to "All Accounts", all_users_path, method: "get", class: "owner-button button" %>
+    </div>
   <% end %>
 
 </div>

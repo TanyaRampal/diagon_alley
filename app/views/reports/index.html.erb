@@ -1,0 +1,27 @@
+<div class="checkout-container">
+  <div class="all-or-container">
+
+    <div class="all-or reports-container">
+      <div class="all-or-title">
+        <h5 class="cart-title-name">Reports</h5>
+      </div>
+
+      <div class="all-orders-container" style="height:370px">
+
+        <% Shop.all.order("name").each do |single_shop| %>
+
+          <div style="display: flex; justify-content:space-between">
+            <%= link_to "#{single_shop.name}", "/reports/#{single_shop.id}", class: "users-row" %>
+          </div>
+
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="orders-goback">
+    <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
+  </div>
+
+</div>

@@ -33,6 +33,14 @@ class CartsController < ApplicationController
         shop_item_price: item.shop_item_price,
         quantity: item.quantity,
       )
+      shop_item = ShopItem.find(item.shop_item_id)
+      if shop_item.number_ordered == nil
+        shop_item.number_ordered = item.quantity
+        shop_item.save
+      else
+        shop_item.number_ordered += item.quantity
+        shop_item.save
+      end
     end
 
     flash[:notice] = "Order successfully placed! Expect an owl with your items soon!"

@@ -300,3 +300,12 @@ img {
 .new-item {
   margin-top: 10px;
 }
+
+.owner-buttons {
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow-y: auto;
+}

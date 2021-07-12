@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   resources :new_users
 
+  resources :reports
+
   post "/signin" => "sessions#create", as: :sessions
   delete "/signout" => "sessions#destroy", as: :destroy_session
 
