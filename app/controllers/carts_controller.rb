@@ -11,12 +11,10 @@ class CartsController < ApplicationController
 
   def destroy
     if current_user.role == "clerk"
-      customer_name = params[:walk_in_customer].split(" ")
-      customer_name = customer_name.map { |name| name.strip.downcase.capitalize }
-      customer = User.find_by(first_name: customer_name[0], last_name: customer_name[1])
+      customer = User.find_by(email: params[:walk_in_customer])
 
       if customer == nil
-        flash[:error] = "No user with the name '#{customer_name[0]} #{customer_name[1]}' exists"
+        flash[:error] = "No user with the email '#{params[:walk_in_customer]}' exists"
         redirect_to cart_path
         return
       end

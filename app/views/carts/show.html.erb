@@ -40,7 +40,7 @@
 
           <% if @current_user.role == "clerk" %>
             <%= form_with(url: "/carts/#{@current_user.carts.first.id}", method: "delete") do %>
-              <%= text_field_tag "walk_in_customer", nil, placeholder: "Name of customer", autofocus: true, required: true, class: "Form-input" %>
+              <%= email_field_tag "walk_in_customer", nil, placeholder: "Email of customer", autofocus: true, required: true, class: "Form-input" %>
               <%= submit_tag "Wingardium Leviosa!", class: "button" %>
               <br><br>
             <% end %>

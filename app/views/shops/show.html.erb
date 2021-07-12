@@ -2,7 +2,13 @@
 
   <div class="cart">
 
-    <% @title = @current_user.role == "owner" ? "Actions" : "#{@current_user.first_name}'s cart" %>
+    <% if @current_user.role == "customer" %>
+      <% @title = "#{@current_user.first_name}'s cart" %>
+    <% elsif @current_user.role == "clerk" %>
+      <% @title = "Customer's cart" %>
+    <% else %>
+      <% @title = "Actions" %>
+    <% end %>
 
     <!-- Section for cart -->
     <%= render partial: "cart-section", locals: {
