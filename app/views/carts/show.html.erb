@@ -1,7 +1,13 @@
 <div class="checkout-container">
   <div class="checkout">
     <div class="checkout-cart-title">
-      <h3 class="cart-title-name"><%= @current_user.first_name %>'s cart</h3>
+      <h3 class="cart-title-name">
+        <% if @current_user.role == "customer" %>
+          <%= @current_user.first_name %>'s cart
+        <% else %>
+          Customer's cart
+        <% end %>
+      </h3>
       <h6><%= @current_user.carts.first.cart_items.count %> items</h6>
     </div>
 
