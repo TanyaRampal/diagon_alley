@@ -55,7 +55,7 @@
                     <div class="col-6 idk3"><%= person.first_name %> <%= person.last_name %> (<%= person.email %>)</div>
                     <div class="col idk3"><%= total_orders %></div>
                     <div class="col idk3"><%= total_items %></div>
-                    <div class="col">$<%= amount %></div>
+                    <div class="col">$<%= amount.round(2) %></div>
                   </div>
                 <% end %>
               <% else %>
@@ -64,7 +64,7 @@
                       <div class="col-6 idk3"><%= person.first_name %> <%= person.last_name %> (<%= person.email %>)</div>
                       <div class="col idk3"><%= total_orders %></div>
                       <div class="col idk3"><%= total_items %></div>
-                      <div class="col">$<%= amount %></div>
+                      <div class="col">$<%= amount.round(2) %></div>
                     </div>
                   <% end %>
               <% end %>

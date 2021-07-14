@@ -38,7 +38,7 @@
                 <% end %>
 
                 <div style="display: flex; justify-content:space-between">
-                  <%= link_to "#{Date::MONTHNAMES[m]} - $#{amount}", sales_report_path(:id => m, :year => year, :range => false), class: "users-row" %>
+                  <%= link_to "#{Date::MONTHNAMES[m]} - $#{amount.round(2)}", sales_report_path(:id => m, :year => year, :range => false), class: "users-row" %>
                 </div>
               <% end %>
             </div>
