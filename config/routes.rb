@@ -17,12 +17,14 @@ Rails.application.routes.draw do
   resources :new_users
 
   resources :reports
+  resources :sales_reports
 
   post "/signin" => "sessions#create", as: :sessions
   delete "/signout" => "sessions#destroy", as: :destroy_session
 
   get "/pending_orders" => "orders#show_pending", as: :pending_orders
   get "/delivered_orders" => "orders#show_delivered", as: :delivered_orders
+  get "/range_of_orders" => "orders#show_range_delivered", as: :range_delivered
 
   get "/all_users" => "new_users#show_all_users", as: :all_users
 end

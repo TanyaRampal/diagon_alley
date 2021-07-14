@@ -1,3 +1,4 @@
+<% if @current_user.role == "owner" %>
 <div class="checkout-container">
   <div class="all-or-container">
 
@@ -6,12 +7,12 @@
     <% if @user.role == "customer" %>
       <% @ordered_by = "#{@user.first_name} #{@user.last_name} (#{@user.email})" %>
       <% @online = @user.orders.order("delivered_on DESC") %>
-      <% @orders = Order.where("walk_in_customer = ? OR user_id = ?", @ordered_by, params[:id]).order("delivered_on DESC") %>
+      <% @orders = Order.where("walk_in_customer = ? OR user_id = ?", @ordered_by, params[:id]) %>
 
       <!-- Section for pending -->
       <%= render partial: "all-orders-section", locals: {
                    title: "#{@user.first_name}'s Pending Orders",
-                   orders: @orders.pending,
+                   orders: @orders.pending.order("ordered_on DESC"),
                    status: "pending",
                    role: @current_user.role,
                  } %>
@@ -20,7 +21,7 @@
       <!-- Section for delivered -->
       <%= render partial: "all-orders-section", locals: {
                    title: "#{@user.first_name}'s Delivered Orders",
-                   orders: @orders.delivered,
+                   orders: @orders.delivered.order("delivered_on DESC"),
                    status: "delivered",
                    role: @current_user.role,
                  } %>
@@ -56,3 +57,12 @@
   </div>
 
 </div>
+
+<% else %>
+  <% flash[:error] = "You do not have access to this page" %>
+  <div class="checkout-container">
+    <div class="all-or-container">
+      <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
+    </div>
+  </div>
+<% end %>

@@ -79,6 +79,7 @@
       <% @button_title = role == "customer" ? "Delivered Orders" : "All Delivered Orders" %>
       <%= button_to @button_title, delivered_orders_path, method: "get", class: "owner-button button" %>
       <%= button_to "Shop Statistics Reports", reports_path, method: "get", class: "owner-button button" %>
+      <%= button_to "Sales Reports", sales_reports_path, method: "get", class: "owner-button button" %>
 
       <h5 class="owner-buttons-title"> Create accounts: </h5>
       <%= button_to "New Owner", new_users_path, method: "get", class: "owner-button button", params: { "role" => "owner" } %>

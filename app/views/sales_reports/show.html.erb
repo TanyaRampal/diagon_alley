@@ -1,0 +1,67 @@
+<% if @current_user.role == "owner" %>
+  <% m = params[:id].to_i %>
+  <% year = params[:year].to_i %>
+
+  <div class="checkout-container">
+    <div class="all-or-container">
+
+      <div class="all-or sales-reports-container">
+        <div class="all-or-title">
+          <h4 class="cart-title-name"><%= Date::MONTHNAMES[m] %>, <%= params[:year] %></h4>
+        </div>
+
+        <div class="all-orders-container" style="height:370px">
+
+          <div class="row checkout-row-price" style="margin-left:0px; width:100%">
+            <div class="col-6 idk3"><h6>Customer</h6></div>
+            <div class="col idk3"><h6>Total Orders</h6></div>
+            <div class="col idk3"><h6>Total Items</h6></div>
+            <div class="col"><h6>Total Sale</h6> </div>
+          </div>
+          <% User.customer.each do |person| %>
+
+            <% @ordered_by = "#{person.first_name} #{person.last_name} (#{person.email})" %>
+            <% @o = Order.delivered.where("walk_in_customer = ? OR user_id = ?", @ordered_by, person.id) %>
+            <% @orders = @o.where("date_part('month', delivered_on) = ? AND date_part('year', delivered_on) = ?", m, year).order("delivered_on DESC") %>
+
+            <% total_orders = 0 %>
+            <% total_items = 0 %>
+            <% amount = 0 %>
+            <% @orders.each do |order| %>
+              <% total_orders += 1 %>
+              <% order.order_items.each do |item| %>
+                <% total_items += item.quantity %>
+                <% amount += item.quantity * item.shop_item_price %>
+              <% end %>
+            <% end %>
+
+
+            <div style="display: flex; justify-content:space-between; text-align:center">
+
+              <%= link_to range_delivered_path(:user_id => person.id, :m => m, :year => year), class: "users-row" do %>
+                <div class="row">
+                  <div class="col-6 idk3"><%= person.first_name %> <%= person.last_name %> (<%= person.email %>)</div>
+                  <div class="col idk3"><%= total_orders %></div>
+                  <div class="col idk3"><%= total_items %></div>
+                  <div class="col">$<%= amount %></div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="orders-goback">
+      <%= button_to "Reverte!", sales_reports_path, method: "get", class: "button" %>
+    </div>
+
+  </div>
+<% else %>
+  <% flash[:error] = "You do not have access to this page" %>
+  <div class="checkout-container">
+    <div class="all-or-container">
+      <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,57 @@
+<% if @current_user.role == "owner" %>
+  <% date2 = Date.today %>
+  <% date1 = Date.parse("2021-05-01") %>
+
+
+  <div class="checkout-container">
+    <div class="all-or-container">
+
+      <div class="all-or reports-container">
+        <div class="all-or-title">
+          <h4 class="cart-title-name">Sales Reports</h4>
+        </div>
+
+        <div class="all-orders-container" style="height:370px">
+
+
+          <% (date1.year..date2.year).reverse_each do |year| %>
+            <div class="dates-container">
+
+            <h4 class="year-title"><%= year %></h4>
+            <% mo_start = (date1.year == year) ? date1.month : 1 %>
+            <% mo_end = (date2.year == year) ? date2.month : 12 %>
+
+            <% (mo_start..mo_end).reverse_each do |m| %>
+              <% amount = 0 %>
+              <% Order.delivered.where("date_part('month', delivered_on) = ? AND date_part('year', delivered_on) = ?", m, year).each do |order| %>
+                <% order.order_items.each do |item| %>
+                  <% amount += item.quantity * item.shop_item_price %>
+                <% end %>
+              <% end %>
+
+              <div style="display: flex; justify-content:space-between">
+                <%= link_to "#{Date::MONTHNAMES[m]} - $#{amount}", sales_report_path(:id => m, :year => year), class: "users-row" %>
+              </div>
+            <% end %>
+            </div>
+
+          <% end %>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="orders-goback">
+      <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
+    </div>
+
+  </div>
+<% else %>
+  <% flash[:error] = "You do not have access to this page" %>
+  <div class="checkout-container">
+    <div class="all-or-container">
+      <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
+    </div>
+  </div>
+<% end %>
