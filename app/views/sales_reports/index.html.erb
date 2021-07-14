@@ -13,26 +13,34 @@
 
         <div class="all-orders-container" style="height:370px">
 
+          <div class="sales-reports-form">
+          <h5>Date Range:</h5>
+            <%= form_with(url: sales_report_path(:id => 0), method: "get") do %>
+              <div>Date from: <%= date_field_tag "date1", nil, class: "new-shop-input" %> to
+              <%= date_field_tag "date2", nil, class: "new-shop-input" %></div>
+              <%= hidden_field_tag "range", true %>
+              <div><%= submit_tag "Search", class: "button" %></div>
+            <% end %>
+          </div>
 
           <% (date1.year..date2.year).reverse_each do |year| %>
             <div class="dates-container">
+              <h4 class="year-title"><%= year %></h4>
+              <% mo_start = (date1.year == year) ? date1.month : 1 %>
+              <% mo_end = (date2.year == year) ? date2.month : 12 %>
 
-            <h4 class="year-title"><%= year %></h4>
-            <% mo_start = (date1.year == year) ? date1.month : 1 %>
-            <% mo_end = (date2.year == year) ? date2.month : 12 %>
-
-            <% (mo_start..mo_end).reverse_each do |m| %>
-              <% amount = 0 %>
-              <% Order.delivered.where("date_part('month', delivered_on) = ? AND date_part('year', delivered_on) = ?", m, year).each do |order| %>
-                <% order.order_items.each do |item| %>
-                  <% amount += item.quantity * item.shop_item_price %>
+              <% (mo_start..mo_end).reverse_each do |m| %>
+                <% amount = 0 %>
+                <% Order.delivered.where("date_part('month', delivered_on) = ? AND date_part('year', delivered_on) = ?", m, year).each do |order| %>
+                  <% order.order_items.each do |item| %>
+                    <% amount += item.quantity * item.shop_item_price %>
+                  <% end %>
                 <% end %>
-              <% end %>
 
-              <div style="display: flex; justify-content:space-between">
-                <%= link_to "#{Date::MONTHNAMES[m]} - $#{amount}", sales_report_path(:id => m, :year => year), class: "users-row" %>
-              </div>
-            <% end %>
+                <div style="display: flex; justify-content:space-between">
+                  <%= link_to "#{Date::MONTHNAMES[m]} - $#{amount}", sales_report_path(:id => m, :year => year, :range => false), class: "users-row" %>
+                </div>
+              <% end %>
             </div>
 
           <% end %>

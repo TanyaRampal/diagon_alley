@@ -30,3 +30,11 @@
 .sales-reports-container {
   width: 60%;
 }
+
+.sales-reports-form {
+  margin: 10px;
+}
+
+.sales-reports-form div {
+  margin-bottom: 10px;
+}

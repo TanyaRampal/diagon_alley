@@ -2,12 +2,19 @@
   <% m = params[:id].to_i %>
   <% year = params[:year].to_i %>
 
+  <% if (params[:range] == "true" && params[:date1] < params[:date2]) || params[:range] == "false" %>
+
   <div class="checkout-container">
     <div class="all-or-container">
 
       <div class="all-or sales-reports-container">
         <div class="all-or-title">
-          <h4 class="cart-title-name"><%= Date::MONTHNAMES[m] %>, <%= params[:year] %></h4>
+          <% if params[:range] == "true" %>
+            <h4 class="cart-title-name"><%= params[:date1] %> to <%= params[:date2] %></h4>
+          <% else %>
+            <h4 class="cart-title-name"><%= Date::MONTHNAMES[m] %>, <%= params[:year] %></h4>
+          <% end %>
+
         </div>
 
         <div class="all-orders-container" style="height:370px">
@@ -22,7 +29,11 @@
 
             <% @ordered_by = "#{person.first_name} #{person.last_name} (#{person.email})" %>
             <% @o = Order.delivered.where("walk_in_customer = ? OR user_id = ?", @ordered_by, person.id) %>
-            <% @orders = @o.where("date_part('month', delivered_on) = ? AND date_part('year', delivered_on) = ?", m, year).order("delivered_on DESC") %>
+            <% if params[:range] == "true" %>
+              <% @orders = @o.where("delivered_on >= ? AND delivered_on <= ?", params[:date1], params[:date2]).order("delivered_on DESC") %>
+            <% else %>
+              <% @orders = @o.where("date_part('month', delivered_on) = ? AND date_part('year', delivered_on) = ?", m, year).order("delivered_on DESC") %>
+            <% end %>
 
             <% total_orders = 0 %>
             <% total_items = 0 %>
@@ -38,13 +49,24 @@
 
             <div style="display: flex; justify-content:space-between; text-align:center">
 
-              <%= link_to range_delivered_path(:user_id => person.id, :m => m, :year => year), class: "users-row" do %>
-                <div class="row">
-                  <div class="col-6 idk3"><%= person.first_name %> <%= person.last_name %> (<%= person.email %>)</div>
-                  <div class="col idk3"><%= total_orders %></div>
-                  <div class="col idk3"><%= total_items %></div>
-                  <div class="col">$<%= amount %></div>
-                </div>
+              <% if params[:range] == "true" %>
+                <%= link_to range_delivered_path(:user_id => person.id, :date1 => params[:date1], :date2 => params[:date2], :range => true), class: "users-row" do %>
+                  <div class="row">
+                    <div class="col-6 idk3"><%= person.first_name %> <%= person.last_name %> (<%= person.email %>)</div>
+                    <div class="col idk3"><%= total_orders %></div>
+                    <div class="col idk3"><%= total_items %></div>
+                    <div class="col">$<%= amount %></div>
+                  </div>
+                <% end %>
+              <% else %>
+                <%= link_to range_delivered_path(:user_id => person.id, :m => m, :year => year, :range => false), class: "users-row" do %>
+                  <div class="row">
+                      <div class="col-6 idk3"><%= person.first_name %> <%= person.last_name %> (<%= person.email %>)</div>
+                      <div class="col idk3"><%= total_orders %></div>
+                      <div class="col idk3"><%= total_items %></div>
+                      <div class="col">$<%= amount %></div>
+                    </div>
+                  <% end %>
               <% end %>
             </div>
           <% end %>
@@ -57,6 +79,15 @@
     </div>
 
   </div>
+
+  <% else %>
+    <% flash[:error] = "Invalid parameters" %>
+    <div class="orders-goback">
+      <%= button_to "Reverte!", sales_reports_path, method: "get", class: "button" %>
+    </div>
+
+  <% end %>
+
 <% else %>
   <% flash[:error] = "You do not have access to this page" %>
   <div class="checkout-container">
