@@ -1,0 +1,74 @@
+<% if @current_user.role == "owner" %>
+
+  <div class="all-or">
+    <div class="all-or-title">
+      <h5 class="cart-title-name"><%= title %></h5>
+      <div><%= orders.count %> orders</div>
+    </div>
+
+    <% if orders != [] %>
+
+      <div class="all-orders-container" style="border:none; padding-right:15px">
+
+        <% orders.each do |order| %>
+          <% @sum = 0 %>
+
+          <% order.order_items.each do |item| %>
+            <% @sum += item.quantity * item.shop_item_price %>
+          <% end %>
+
+          <% user = order.user %>
+          <% if type == "online" %>
+            <% ordered_by = "#{user.first_name} #{user.last_name} (#{user.email})" %>
+          <% else %>
+            <% ordered_by = order.walk_in_customer %>
+          <% end %>
+
+          <% if params[:range] == "true" %>
+            <%= link_to show_order_path(:order_id => order.id, :date1 => date1, :date2 => date2, :range => true), class: "report-order-link" do %>
+              <div class="users-row">
+                <h6>Order #<%= order.id %></h6>
+                <% if type == "online" %>
+                  <h6>Ordered by: <%= ordered_by %></h6>
+                <% else %>
+                  <h6>Walk-in customer: <%= ordered_by %></h6>
+                <% end %>
+                <h6>Delivered on: <%= Date.parse(order.delivered_on.to_s).to_s(:long) %></h6>
+                <h6>Amount: <%= @sum.round(2) %></h6>
+              </div>
+            <% end %>
+          <% else %>
+            <%= link_to show_order_path(:order_id => order.id, :m => m, :year => year, :range => false), class: "report-order-link" do %>
+              <div class="users-row">
+                <h6>Order #<%= order.id %></h6>
+                <% if type == "online" %>
+                  <h6>Ordered by: <%= ordered_by %></h6>
+                <% else %>
+                  <h6>Walk-in customer: <%= ordered_by %></h6>
+                <% end %>
+                <h6>Delivered on: <%= Date.parse(order.delivered_on.to_s).to_s(:long) %></h6>
+                <h6>Amount: <%= @sum.round(2) %></h6>
+              </div>
+              <% end %>
+          <% end %>
+
+
+        <% end %>
+      </div>
+
+    <% else %>
+      <div class="empty-cart">
+        No items!
+      </div>
+    <% end %>
+
+  </div>
+
+<% else %>
+  <% flash[:error] = "You do not have access to this page" %>
+  <div class="checkout-container">
+    <div class="all-or-container">
+      <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
+    </div>
+  </div>
+<% end %>

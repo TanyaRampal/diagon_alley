@@ -38,3 +38,16 @@
 .sales-reports-form div {
   margin-bottom: 10px;
 }
+
+.report-order-link {
+  text-decoration: none;
+  color: black;
+}
+
+.report-order {
+  margin: 10px 10px 10px 0px;
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  width: 100%;
+}

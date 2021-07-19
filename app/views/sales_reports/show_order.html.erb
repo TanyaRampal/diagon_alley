@@ -1,0 +1,81 @@
+<% if @current_user.role == "owner" %>
+
+  <% order = Order.find(params[:order_id]) %>
+
+  <div class="checkout-container">
+   <div class="all-or-container">
+
+      <div class="all-or" style="width:80%">
+        <div class="all-or-title">
+          <h5 class="cart-title-name">Order #<%= order.id %> </h5>
+        </div>
+
+        <div class="all-orders-container" style="border:none; height:380px">
+
+          <div class="all-orders">
+
+            <div class="order-dets-all-del order-dets">
+              <h5>Ordered by: <%= order.user.first_name %> <%= order.user.last_name %> (<%= order.user.email %>)
+              <% if order.walk_in_customer != nil %>
+                (for walk-in customer)</h5>
+              <% end %>
+              <h5>Delivered by: <%= order.delivered_by %></h5>
+              <% if order.walk_in_customer != nil %>
+                <h5>Walk-in Customer: <%= order.walk_in_customer %> </h5>
+              <% end %>
+              <h5>Ordered on <%= Date.parse(order.ordered_on.to_s).to_s(:long) %> at <%= Time.parse(order.ordered_on.to_s).strftime("%I:%M %p") %></h5>
+              <h5>Delivered on <%= Date.parse(order.delivered_on.to_s).to_s(:long) %> at <%= Time.parse(order.delivered_on.to_s).strftime("%I:%M %p") %></h5>
+            </div>
+
+            <div class="container">
+
+              <div class="row row-items">
+                <div class="col idk3"><h6>Item Name</h6></div>
+                <div class="col idk3"><h6>Quantity</h6></div>
+                <div class="col"><h6>Price</h6></div>
+              </div>
+              <% @sum = 0 %>
+
+              <% order.order_items.each do |item| %>
+
+                <div class="row row-items">
+                  <div class="col idk3"><%= item.shop_item_name %></div>
+                  <div class="col idk3"><%= item.quantity %></div>
+                  <div class="col">$<%= item.quantity * item.shop_item_price %></div>
+                </div>
+
+                <% @sum += item.quantity * item.shop_item_price %>
+              <% end %>
+
+              <div class="row checkout-row-price">
+                <div class="col-8 idk3"><h6>Total Price</h6></div>
+                <div class="col"><h6>$<%= @sum.round(2) %></h6> </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="orders-goback">
+    <% m = params[:m].to_i %>
+    <% year = params[:year].to_i %>
+    <% if params[:range] == "true" %>
+      <%= button_to "Reverte!", sales_report_path(:id => 0), params: { :range => params[:range], :date1 => params[:date1], :date2 => params[:date2] }, method: "get", class: "button" %>
+    <% else %>
+      <%= button_to "Reverte!", sales_report_path(:id => m), params: { :year => year, :range => params[:range] }, method: "get", class: "button" %>
+    <% end %>
+  </div>
+
+  </div>
+
+<% else %>
+  <% flash[:error] = "You do not have access to this page" %>
+  <div class="checkout-container">
+    <div class="all-or-container">
+      <%= button_to "Reverte!", shops_path, method: "get", class: "button" %>
+    </div>
+  </div>
+<% end %>

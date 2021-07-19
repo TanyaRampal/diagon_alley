@@ -4,74 +4,52 @@
 
   <% if (params[:range] == "true" && params[:date1] < params[:date2]) || params[:range] == "false" %>
 
+
   <div class="checkout-container">
     <div class="all-or-container">
 
-      <div class="all-or sales-reports-container">
-        <div class="all-or-title">
-          <% if params[:range] == "true" %>
-            <h4 class="cart-title-name"><%= params[:date1] %> to <%= params[:date2] %></h4>
-          <% else %>
-            <h4 class="cart-title-name"><%= Date::MONTHNAMES[m] %>, <%= params[:year] %></h4>
-          <% end %>
+      <% @o = Order.delivered %>
+      <% if params[:range] == "true" %>
+        <% @orders = @o.where("DATE(delivered_on) <= ? AND DATE(delivered_on) >= ?", params[:date2], params[:date1]).order("delivered_on DESC") %>
+        <% @title = "Online delivered for: #{params[:date1]} to #{params[:date2]}" %>
+      <% else %>
+        <% @orders = @o.where("date_part('month', delivered_on) = ? AND date_part('year', delivered_on) = ?", m, year).order("delivered_on DESC") %>
+        <% @title = "Online delivered for: #{Date::MONTHNAMES[m]}, #{params[:year]}" %>
+      <% end %>
 
-        </div>
+      <!-- Section for online customers -->
+      <%= render partial: "all-orders-section", locals: {
+                   title: @title,
+                   orders: @orders.online,
+                   type: "online",
+                   m: m,
+                   year: year,
+                   date1: params[:date1],
+                   date2: params[:date2],
+                   range: params[:range],
+                 } %>
+      <!-- End  -->
 
-        <div class="all-orders-container" style="height:370px">
+      <% if params[:range] == "true" %>
+        <% @title = "Walk-in delivered for: #{params[:date1]} to #{params[:date2]}" %>
+      <% else %>
+        <% @title = "Walk-in delivered for: #{Date::MONTHNAMES[m]}, #{params[:year]}" %>
+      <% end %>
 
-          <div class="row checkout-row-price" style="margin-left:0px; width:100%">
-            <div class="col-6 idk3"><h6>Customer</h6></div>
-            <div class="col idk3"><h6>Total Orders</h6></div>
-            <div class="col idk3"><h6>Total Items</h6></div>
-            <div class="col"><h6>Total Sale</h6> </div>
-          </div>
-          <% User.customer.each do |person| %>
-
-            <% @ordered_by = "#{person.first_name} #{person.last_name} (#{person.email})" %>
-            <% @o = Order.delivered.where("walk_in_customer = ? OR user_id = ?", @ordered_by, person.id) %>
-            <% if params[:range] == "true" %>
-              <% @orders = @o.where("delivered_on >= ? AND delivered_on <= ?", params[:date1], params[:date2]).order("delivered_on DESC") %>
-            <% else %>
-              <% @orders = @o.where("date_part('month', delivered_on) = ? AND date_part('year', delivered_on) = ?", m, year).order("delivered_on DESC") %>
-            <% end %>
-
-            <% total_orders = 0 %>
-            <% total_items = 0 %>
-            <% amount = 0 %>
-            <% @orders.each do |order| %>
-              <% total_orders += 1 %>
-              <% order.order_items.each do |item| %>
-                <% total_items += item.quantity %>
-                <% amount += item.quantity * item.shop_item_price %>
-              <% end %>
-            <% end %>
+      <!-- Section for walk in customers -->
+      <%= render partial: "all-orders-section", locals: {
+                   title: @title,
+                   orders: @orders.walk_in,
+                   type: "walk-in",
+                   m: m,
+                   year: year,
+                   date1: params[:date1],
+                   date2: params[:date2],
+                   range: params[:range],
+                 } %>
+      <!-- End  -->
 
 
-            <div style="display: flex; justify-content:space-between; text-align:center">
-
-              <% if params[:range] == "true" %>
-                <%= link_to range_delivered_path(:user_id => person.id, :date1 => params[:date1], :date2 => params[:date2], :range => true), class: "users-row" do %>
-                  <div class="row">
-                    <div class="col-6 idk3"><%= person.first_name %> <%= person.last_name %> (<%= person.email %>)</div>
-                    <div class="col idk3"><%= total_orders %></div>
-                    <div class="col idk3"><%= total_items %></div>
-                    <div class="col">$<%= amount.round(2) %></div>
-                  </div>
-                <% end %>
-              <% else %>
-                <%= link_to range_delivered_path(:user_id => person.id, :m => m, :year => year, :range => false), class: "users-row" do %>
-                  <div class="row">
-                      <div class="col-6 idk3"><%= person.first_name %> <%= person.last_name %> (<%= person.email %>)</div>
-                      <div class="col idk3"><%= total_orders %></div>
-                      <div class="col idk3"><%= total_items %></div>
-                      <div class="col">$<%= amount.round(2) %></div>
-                    </div>
-                  <% end %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      </div>
     </div>
 
     <div class="orders-goback">

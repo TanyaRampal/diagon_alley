@@ -15,13 +15,13 @@
 
           <div class="order-dets-all-del order-dets">
             <% if (order.walk_in_customer != nil && role == "customer") || role != "customer" %>
-              <h5>Ordered by <%= order.user.first_name %> <%= order.user.last_name %> (<%= order.user.email %>)
+              <h5>Ordered by :<%= order.user.first_name %> <%= order.user.last_name %> (<%= order.user.email %>)
               <% if order.walk_in_customer != nil %>
               (for walk-in customer)</h5>
               <% end %>
             <% end %>
             <% if order.delivered_by != nil && role != "clerk" %>
-              <h5>Delivered by <%= order.delivered_by %></h5>
+              <h5>Delivered by :<%= order.delivered_by %></h5>
             <% end %>
             <% if role != "customer" %>
               <% if order.walk_in_customer != nil %>
